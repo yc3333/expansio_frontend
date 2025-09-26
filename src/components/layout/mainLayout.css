@@ -1,0 +1,219 @@
+/* ===== 修改后的 mainLayout.css - 支持滚动 ===== */
+
+.main-layout {
+  background: #000;
+  height: 100vh; /* 改为固定高度而不是min-height */
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  display: flex;
+  overflow: hidden; /* 防止整个布局滚动 */
+}
+
+.main-content {
+  flex: 1;
+  position: relative;
+  background: #000;
+  /* 新增滚动属性 - 支持左右滑动 */
+  overflow-y: auto; /* 允许垂直滚动 */
+  overflow-x: auto; /* 允许水平滚动 */
+  height: 100vh; /* 确保有固定高度 */
+}
+
+.custom-logo {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  height: 30px;
+  width: auto;
+  z-index: 10;
+}
+
+/* 页面样式 - 调整padding以确保内容不被logo遮挡 */
+.page-content {
+  padding: 100px 32px 32px 32px;
+  color: white;
+  min-height: calc(100vh - 100px); /* 确保内容有足够高度触发滚动 */
+  min-width: 1200px; /* 添加最小宽度，确保可以水平滚动 */
+}
+
+.page-content h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 24px;
+}
+
+/* 自定义滚动条样式 - 垂直和水平 */
+.main-content::-webkit-scrollbar {
+  width: 8px;
+  height: 8px; /* 水平滚动条高度 */
+}
+
+.main-content::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.main-content::-webkit-scrollbar-thumb {
+  background: rgba(96, 165, 250, 0.6);
+  border-radius: 10px;
+}
+
+.main-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(96, 165, 250, 0.8);
+}
+
+/* 水平和垂直滚动条交叉点样式 */
+.main-content::-webkit-scrollbar-corner {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Analytics 样式 */
+.analytics-container {
+  background: #111827;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 8px;
+  padding: 32px;
+  margin-bottom: 24px; /* 添加底部间距 */
+  min-width: 1000px; /* 确保analytics有足够宽度触发水平滚动 */
+}
+
+.analytics-container h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.analytics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 250px); /* 固定列宽，更容易触发水平滚动 */
+  gap: 24px;
+}
+
+.analytics-card {
+  background: rgba(30, 58, 138, 0.2);
+  border: 1px solid rgba(59, 130, 246, 0.4);
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.analytics-card h3 {
+  color: #60a5fa;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.analytics-number {
+  font-size: 2rem;
+  font-weight: bold;
+  color: white;
+  margin: 0;
+}
+
+/* History 样式 */
+.history-container {
+  background: #111827;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 8px;
+  padding: 32px;
+  margin-bottom: 32px; /* 添加底部间距 */
+  min-width: 1000px; /* 确保history容器有足够宽度 */
+}
+
+.history-container h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  /* 为了测试滚动，你可以添加更多内容或设置最小高度 */
+  min-height: 800px; /* 临时添加，确保有足够内容触发滚动 */
+}
+
+.history-item {
+  background: rgba(30, 58, 138, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.2s ease;
+  min-width: 800px; /* 确保每个item有足够宽度 */
+  white-space: nowrap; /* 防止文字换行 */
+}
+
+.history-item:hover {
+  background: rgba(30, 58, 138, 0.2);
+}
+
+.history-item h3 {
+  color: white;
+  font-weight: 500;
+  margin: 0 0 4px 0;
+}
+
+.history-item p {
+  color: #93c5fd;
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.history-view-btn {
+  color: #60a5fa;
+  background: none;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.history-view-btn:hover {
+  color: #93c5fd;
+}
+
+/* 平滑滚动效果 */
+.main-content {
+  scroll-behavior: smooth;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .analytics-grid {
+    grid-template-columns: repeat(2, 250px); /* 在小屏幕上减少列数但保持固定宽度 */
+  }
+  
+  .page-content {
+    padding: 80px 16px 32px 16px;
+    min-width: 800px; /* 在移动设备上也保持最小宽度以触发水平滚动 */
+  }
+  
+  .analytics-container,
+  .history-container {
+    min-width: 600px;
+  }
+  
+  .history-item {
+    min-width: 500px;
+  }
+}
+
+/* 添加一些额外的宽内容来演示水平滚动 */
+.wide-content-demo {
+  width: 1500px;
+  height: 200px;
+  background: linear-gradient(90deg, #1e3a8a, #3b82f6, #60a5fa, #93c5fd);
+  border-radius: 8px;
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+}

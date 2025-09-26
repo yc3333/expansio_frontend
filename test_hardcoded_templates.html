@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hardcoded Templates Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #1a1a1a;
+            color: white;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .template-card {
+            background: #2a2a2a;
+            border: 1px solid #3b82f6;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+            position: relative;
+        }
+        .template-type {
+            color: #60a5fa;
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+        .template-content {
+            color: #ccc;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+        .engagement-stats {
+            display: flex;
+            gap: 16px;
+            font-size: 12px;
+            color: #888;
+        }
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .count {
+            color: #10b981;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .color-indicator {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Hardcoded Templates Test</h1>
+        <div class="count" id="templateCount">Loading...</div>
+        <div id="templates"></div>
+    </div>
+
+    <script>
+        // 硬编码的4个模板数据
+        const hardcodedTemplates = [
+            {
+                template_type: 'test1',
+                content: '这是测试模板1的内容。这是一个知识分享型的模板，包含专业的信息和实用的建议。📚✨ #知识分享 #专业内容',
+                predicted_likes: 1500,
+                predicted_comments: 120,
+                predicted_shares: 80,
+                predicted_bookmarks: 300,
+                color: '#3b82f6'
+            },
+            {
+                template_type: 'test2',
+                content: '这是测试模板2的内容。这是一个悬念制造型的模板，通过制造悬念来吸引读者的注意力。🤔😱 #悬念制造 #吸引眼球',
+                predicted_likes: 2200,
+                predicted_comments: 180,
+                predicted_shares: 120,
+                predicted_bookmarks: 450,
+                color: '#8b5cf6'
+            },
+            {
+                template_type: 'test3',
+                content: '这是测试模板3的内容。这是一个日记分享型的模板，记录真实感受和思考过程。😊💭 #日记分享 #真实记录',
+                predicted_likes: 800,
+                predicted_comments: 90,
+                predicted_shares: 45,
+                predicted_bookmarks: 180,
+                color: '#f59e0b'
+            },
+            {
+                template_type: 'test4',
+                content: '这是测试模板4的内容。这是一个问题引导型的模板，通过提问来引发讨论和互动。❓🤷‍♀️ #问题引导 #互动讨论',
+                predicted_likes: 1800,
+                predicted_comments: 250,
+                predicted_shares: 100,
+                predicted_bookmarks: 350,
+                color: '#10b981'
+            }
+        ];
+
+        function displayTemplates() {
+            const countElement = document.getElementById('templateCount');
+            const templatesElement = document.getElementById('templates');
+            
+            countElement.textContent = `${hardcodedTemplates.length} hardcoded templates found`;
+            
+            templatesElement.innerHTML = hardcodedTemplates.map((template, index) => `
+                <div class="template-card">
+                    <div class="color-indicator" style="background-color: ${template.color}"></div>
+                    <div class="template-type">${index + 1}. ${template.template_type.toUpperCase()}</div>
+                    <div class="template-content">${template.content}</div>
+                    <div class="engagement-stats">
+                        <div class="stat">❤️ ${template.predicted_likes.toLocaleString()}</div>
+                        <div class="stat">💬 ${template.predicted_comments}</div>
+                        <div class="stat">🔄 ${template.predicted_shares}</div>
+                        <div class="stat">🔖 ${template.predicted_bookmarks}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 页面加载时显示模板
+        window.onload = displayTemplates;
+    </script>
+</body>
+</html> 

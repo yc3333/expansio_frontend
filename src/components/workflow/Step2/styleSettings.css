@@ -1,0 +1,301 @@
+/* ===== src/components/workflow/Step2/styleSettings.css ===== */
+
+.step-header {
+  margin-bottom: 20px;
+}
+
+.step-header h3 {
+  margin: 0 0 8px 0;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.step-header p {
+  margin: 0;
+  color: #93c5fd;
+  font-size: 14px;
+}
+
+.style-content {
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 60px);
+}
+
+.section-label {
+  color: #e2e8f0;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  display: block;
+}
+
+/* Generated Text Display - 自适应高度 */
+.generated-text-section {
+  flex: none;
+  min-height: 0;
+}
+
+.generated-text-display {
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 8px;
+  padding: 16px;
+  color: #e2e8f0;
+  font-size: 13px;
+  line-height: 1.6;
+  font-family: "Inter", system-ui, sans-serif;
+  white-space: pre-line;
+  backdrop-filter: blur(10px);
+  resize: vertical;
+  overflow: auto;
+  min-height: 100px;
+  max-height: 300px;
+  width: 100%;
+  box-sizing: border-box;
+  cursor: text;
+}
+
+.generated-text-display:focus {
+  outline: none;
+  border-color: rgba(59, 130, 246, 0.6);
+  background: rgba(0, 0, 0, 0.8);
+}
+
+/* Sliders Section */
+.sliders-section {
+  flex-shrink: 0;
+  margin-top: 20px;
+}
+
+.sliders-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.slider-group {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-radius: 8px;
+  padding: 16px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+}
+
+.slider-group:hover {
+  border-color: rgba(59, 130, 246, 0.4);
+  background: rgba(15, 23, 42, 0.8);
+}
+
+.slider-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.slider-icon {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(59, 130, 246, 0.1);
+  border-radius: 6px;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  color: #60a5fa;
+}
+
+.slider-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.slider-label {
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.slider-description {
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+.slider-value {
+  font-weight: 700;
+  font-size: 16px;
+  font-family: "Monaco", "Consolas", monospace;
+  text-shadow: 0 0 10px currentColor;
+}
+
+/* Custom Slider */
+.slider-container {
+  position: relative;
+  height: 6px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.custom-slider {
+  width: 100%;
+  height: 6px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  outline: none;
+  position: absolute;
+  top: 0;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.custom-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--slider-color);
+  cursor: pointer;
+  box-shadow: 0 0 10px var(--slider-color), 0 0 20px var(--slider-color);
+  transition: all 0.2s ease;
+}
+
+.custom-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 15px var(--slider-color), 0 0 30px var(--slider-color);
+}
+
+.custom-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--slider-color);
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 0 10px var(--slider-color);
+}
+
+/* Slider Track Progress */
+.custom-slider::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: var(--slider-progress);
+  background: linear-gradient(90deg, var(--slider-color), var(--slider-color));
+  border-radius: 3px;
+  transition: width 0.2s ease;
+  box-shadow: 0 0 10px var(--slider-color);
+}
+
+/* Apply Button */
+.apply-style-btn {
+  background: linear-gradient(135deg, #1e40af, #3b82f6, #1e40af);
+  background-size: 200% 200%;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 8px;
+  padding: 14px 28px;
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: relative;
+  overflow: hidden;
+  animation: gradientShift 3s ease infinite;
+  margin-top: 16px;
+}
+
+.apply-style-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transition: left 0.5s;
+}
+
+.apply-style-btn:hover::before {
+  left: 100%;
+}
+
+.apply-style-btn:hover {
+  background: linear-gradient(135deg, #1d4ed8, #60a5fa, #1d4ed8);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(29, 78, 216, 0.4);
+}
+
+@keyframes gradientShift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Next Step Button */
+/* Next Step Button */
+.next-step-btn {
+  background: linear-gradient(135deg, #1e3a8a, #3730a3);
+  border: 1px solid rgba(30, 58, 138, 0.3);
+  border-radius: 8px;
+  padding: 14px 28px;
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: relative;
+  overflow: hidden;
+  margin-top: 12px;
+}
+
+.next-step-btn:hover {
+  background: linear-gradient(135deg, #1e40af, #4338ca);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(30, 58, 138, 0.4);
+}
+
+.next-step-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transition: left 0.5s;
+}
+
+.next-step-btn:hover::before {
+  left: 100%;
+}

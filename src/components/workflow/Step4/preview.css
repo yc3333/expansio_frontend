@@ -1,0 +1,1196 @@
+/* ===== src/components/workflow/Step4/preview.css ===== */
+
+.step-header {
+  margin-bottom: 20px;
+}
+
+.step-header h3 {
+  margin: 0 0 8px 0;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.step-header p {
+  margin: 0;
+  color: #93c5fd;
+  font-size: 14px;
+}
+
+.preview-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: calc(100% - 60px);
+  align-items: center;
+}
+
+/* Platform Indicator - Simplified */
+.platform-indicator-bar {
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 8px;
+  padding: 16px 20px;
+  backdrop-filter: blur(5px);
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+  z-index: 10;
+}
+
+.current-platform {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.template-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.platform-indicator-logo {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  object-fit: contain;
+}
+
+.platform-name-display {
+  color: #60a5fa;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.template-name-display {
+  color: #10b981;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* Phone Mockup */
+.phone-mockup {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-height: 500px;
+  min-height: 400px;
+}
+
+.phone-frame {
+  width: 280px;
+  height: 500px;
+  background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+  border-radius: 30px;
+  padding: 10px;
+  position: relative;
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.5),
+    inset 0 2px 4px rgba(255, 255, 255, 0.1);
+}
+
+.phone-frame::before {
+  content: '';
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70px;
+  height: 5px;
+  background: #333;
+  border-radius: 3px;
+}
+
+.phone-screen {
+  width: 100%;
+  height: 100%;
+  background: #000;
+  border-radius: 22px;
+  overflow: hidden;
+  position: relative;
+}
+
+.phone-status-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  height: 40px;
+}
+
+.status-center {
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.phone-content {
+  flex: 1;
+  background: #fff;
+  height: calc(100% - 40px);
+  overflow-y: auto;
+}
+
+/* LinkedIn Post Styles - Fixed to match real LinkedIn */
+.linkedin-post {
+  padding: 12px;
+  background: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  margin: 8px;
+}
+
+.linkedin-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.linkedin-avatar .avatar-placeholder {
+  width: 48px;
+  height: 48px;
+  background: #0077b5;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.linkedin-user-info {
+  flex: 1;
+  line-height: 1.2;
+}
+
+.linkedin-name {
+  font-weight: 600;
+  font-size: 14px;
+  color: #000;
+  margin-bottom: 2px;
+}
+
+.linkedin-title {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 2px;
+}
+
+.linkedin-time {
+  font-size: 12px;
+  color: #666;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.linkedin-menu {
+  color: #666;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+}
+
+.linkedin-menu:hover {
+  background-color: #f3f2ef;
+}
+
+.linkedin-content {
+  margin-bottom: 12px;
+  padding: 0 4px;
+}
+
+.linkedin-content p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #000;
+  white-space: pre-line;
+}
+
+/* LinkedIn Engagement Section - Real LinkedIn Style */
+.linkedin-engagement {
+  border-top: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 8px 4px;
+  margin-bottom: 4px;
+}
+
+.linkedin-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: #666;
+}
+
+.reaction-summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.reaction-icons {
+  display: flex;
+  align-items: center;
+  margin-right: 4px;
+}
+
+.reaction-icon {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  margin-left: -2px;
+  border: 1px solid #fff;
+  position: relative;
+}
+
+.reaction-icon.like {
+  background: #0077b5;
+  z-index: 3;
+}
+
+.reaction-icon.love {
+  background: #e60023;
+  z-index: 2;
+}
+
+.reaction-icon.insight {
+  background: #f5b800;
+  z-index: 1;
+}
+
+.reaction-count {
+  color: #666;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.reaction-count:hover {
+  color: #0077b5;
+  text-decoration: underline;
+}
+
+.engagement-counts {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.count-item {
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.count-item:hover {
+  color: #0077b5;
+  text-decoration: underline;
+}
+
+.count-separator {
+  color: #ccc;
+  font-size: 10px;
+}
+
+/* LinkedIn Actions - Real LinkedIn Style */
+.linkedin-actions {
+  display: flex;
+  justify-content: space-around;
+  padding: 4px 0;
+}
+
+.linkedin-action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border: none;
+  background: none;
+  color: #666;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  flex: 1;
+}
+
+.linkedin-action-btn:hover {
+  background-color: #f3f2ef;
+  color: #333;
+}
+
+.linkedin-action-btn svg {
+  transition: color 0.2s ease;
+}
+
+.linkedin-action-btn:hover svg {
+  color: #666;
+}
+
+/* Special hover states for different actions */
+.linkedin-action-btn:nth-child(1):hover {
+  color: #0077b5;
+}
+
+.linkedin-action-btn:nth-child(1):hover svg {
+  color: #0077b5;
+}
+
+.linkedin-action-btn:nth-child(2):hover {
+  color: #70b5f9;
+}
+
+.linkedin-action-btn:nth-child(2):hover svg {
+  color: #70b5f9;
+}
+
+.linkedin-action-btn:nth-child(3):hover {
+  color: #00a0dc;
+}
+
+.linkedin-action-btn:nth-child(3):hover svg {
+  color: #00a0dc;
+}
+
+.linkedin-action-btn:nth-child(4):hover {
+  color: #666;
+}
+
+.linkedin-action-btn:nth-child(4):hover svg {
+  color: #666;
+}
+
+/* Instagram Post Styles */
+.instagram-post {
+  background: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.instagram-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+}
+
+.instagram-avatar .avatar-placeholder {
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.instagram-user-info {
+  flex: 1;
+}
+
+.instagram-username {
+  font-weight: 600;
+  font-size: 13px;
+  color: #262626;
+}
+
+.instagram-location {
+  font-size: 11px;
+  color: #8e8e8e;
+}
+
+.instagram-menu {
+  color: #262626;
+  font-size: 18px;
+}
+
+.instagram-image {
+  aspect-ratio: 1;
+  background: #f5f5f5;
+}
+
+.image-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-size: 24px;
+}
+
+.instagram-actions {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 16px;
+}
+
+.action-left, .action-right {
+  display: flex;
+  gap: 16px;
+}
+
+.action-left svg, .action-right svg {
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #262626;
+  width: 18px;
+  height: 18px;
+}
+
+.action-left svg:hover {
+  color: #8e8e8e;
+  transform: scale(1.1);
+}
+
+.action-right svg:hover {
+  color: #8e8e8e;
+  transform: scale(1.1);
+}
+
+.instagram-content {
+  padding: 0 16px 16px;
+  color: #262626;
+}
+
+.instagram-likes {
+  font-weight: 600;
+  font-size: 13px;
+  margin-bottom: 8px;
+  color: #262626;
+}
+
+.instagram-caption {
+  font-size: 13px;
+  line-height: 1.4;
+  margin-bottom: 8px;
+  color: #262626;
+  white-space: pre-line;
+}
+
+.username {
+  font-weight: 600;
+  color: #262626;
+}
+
+.instagram-comments-link {
+  font-size: 13px;
+  color: #8e8e8e;
+  margin-bottom: 8px;
+}
+
+/* RedNote Post Styles - 更新为Instagram风格的布局 */
+.rednote-post {
+  background: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', sans-serif;
+}
+
+.rednote-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+}
+
+.rednote-avatar .avatar-placeholder {
+  width: 36px;
+  height: 36px;
+  background: #ff2442;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.rednote-user-info {
+  flex: 1;
+}
+
+.rednote-username {
+  font-weight: 600;
+  font-size: 13px;
+  color: #000;
+}
+
+.rednote-time {
+  font-size: 11px;
+  color: #999;
+}
+
+.rednote-follow {
+  background: #ff2442;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.rednote-image {
+  aspect-ratio: 4/3;
+  background: #f5f5f5;
+}
+
+.image-placeholder.rednote-style {
+  background: linear-gradient(135deg, #ff2442 0%, #ff6b6b 100%);
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* RedNote Actions - 参考Instagram样式，移到文案上方 */
+.rednote-post .rednote-actions {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: #fff;
+}
+
+.rednote-post .action-left, 
+.rednote-post .action-right {
+  display: flex;
+  gap: 16px;
+}
+
+.rednote-post .rednote-action {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #262626;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.rednote-post .rednote-action:hover {
+  color: #ff2442;
+}
+
+.rednote-post .rednote-action svg {
+  transition: all 0.2s ease;
+  width: 18px;
+  height: 18px;
+  color: #262626;
+}
+
+.rednote-post .rednote-action:hover svg {
+  color: #ff2442;
+  transform: scale(1.1);
+}
+
+.rednote-post .rednote-action span {
+  font-weight: 500;
+  color: inherit;
+}
+
+.rednote-content {
+  padding: 0 16px 16px;
+}
+
+.rednote-description {
+  font-size: 13px;
+  line-height: 1.5;
+  color: #333;
+  margin: 0;
+  white-space: pre-line;
+}
+
+/* Action Buttons - Updated */
+.preview-actions {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.action-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.action-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s;
+}
+
+.action-btn:hover::before {
+  left: 100%;
+}
+
+.action-btn.export {
+  background: linear-gradient(135deg, #1e40af, #3b82f6);
+  color: white;
+}
+
+.action-btn.export:hover:not(.disabled) {
+  background: linear-gradient(135deg, #1d4ed8, #60a5fa);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(29, 78, 216, 0.4);
+}
+
+.action-btn.save {
+  background: rgba(16, 185, 129, 0.1);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.action-btn.save:hover:not(.disabled) {
+  background: rgba(16, 185, 129, 0.2);
+  border-color: rgba(16, 185, 129, 0.5);
+  transform: translateY(-2px);
+}
+
+.action-btn.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.enhance-action {
+  width: 100%;
+  max-width: 400px;
+}
+.enhance-action .action-btn {
+  width: 100%;
+}
+
+
+/* Publish Section - New */
+.publish-section {
+  background: rgba(15, 23, 42, 0.8);
+  border: 2px solid rgba(59, 130, 246, 0.4);
+  border-radius: 12px;
+  padding: 20px;
+  backdrop-filter: blur(5px);
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.publish-header {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.publish-title {
+  display: block;
+  color: #e2e8f0;
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.publish-subtitle {
+  display: block;
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+.publish-action {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: rgba(30, 41, 59, 0.9);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 10px;
+  padding: 16px;
+  backdrop-filter: blur(10px);
+}
+
+.platform-publish-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.platform-logo-simple {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.publish-platform-logo {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  object-fit: contain;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.platform-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.platform-name {
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.publish-ready {
+  color: #10b981;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.publish-btn {
+  background: linear-gradient(135deg, var(--platform-color), var(--platform-color));
+  border: 1px solid var(--platform-color);
+  border-radius: 8px;
+  padding: 12px 20px;
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.publish-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.publish-btn:hover:not(.disabled)::before {
+  left: 100%;
+}
+
+.publish-btn:hover:not(.disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  filter: brightness(1.1);
+}
+
+.publish-btn.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* Spinner */
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid #ffffff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Image Upload Styles - Add these to your preview.css */
+
+/* LinkedIn Image Styles */
+.linkedin-image {
+  margin: 12px 0;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #f8f9fa;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Instagram & RedNote Image Styles */
+.instagram-image, .rednote-image {
+  aspect-ratio: 1;
+  background: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.rednote-image {
+  aspect-ratio: 4/3;
+}
+
+/* Image Upload Placeholder */
+.image-upload-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px dashed #ddd;
+  border-radius: 8px;
+  background: #fafafa;
+  min-height: 200px;
+}
+
+.image-upload-placeholder:hover {
+  border-color: #3b82f6;
+  color: #3b82f6;
+  background: #f0f9ff;
+}
+
+.image-upload-placeholder svg {
+  transition: all 0.3s ease;
+}
+
+.image-upload-placeholder:hover svg {
+  transform: scale(1.1);
+  color: #3b82f6;
+}
+
+.image-upload-placeholder span {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Image Uploading State */
+.image-uploading {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: #3b82f6;
+  background: #f0f9ff;
+  min-height: 200px;
+  border-radius: 8px;
+}
+
+.upload-spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid rgba(59, 130, 246, 0.3);
+  border-top: 3px solid #3b82f6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.image-uploading span {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Uploaded Image Container */
+.uploaded-image-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.uploaded-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Remove Image Button */
+.remove-image-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  background: rgba(0, 0, 0, 0.7);
+  border: none;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.remove-image-btn:hover {
+  background: rgba(220, 38, 38, 0.8);
+  transform: scale(1.1);
+}
+
+/* Platform-specific adjustments */
+
+/* LinkedIn specific */
+.linkedin-post .image-upload-placeholder {
+  min-height: 180px;
+  border-radius: 4px;
+}
+
+.linkedin-post .uploaded-image-container {
+  border-radius: 4px;
+}
+
+/* Instagram specific */
+.instagram-post .image-upload-placeholder {
+  border-radius: 0;
+  min-height: auto;
+  height: 100%;
+}
+
+.instagram-post .uploaded-image-container {
+  border-radius: 0;
+}
+
+/* RedNote specific */
+.rednote-post .image-upload-placeholder {
+  border-radius: 8px;
+  min-height: auto;
+  height: 100%;
+}
+
+.rednote-post .uploaded-image-container {
+  border-radius: 8px;
+}
+
+/* Animation */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 320px) {
+  .image-upload-placeholder {
+    min-height: 150px;
+  }
+  
+  .image-upload-placeholder svg {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .image-upload-placeholder span {
+    font-size: 12px;
+  }
+}
+
+/* TikTok Post Styles */
+.tiktok-post {
+  background: #000;
+  color: white;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.tiktok-video-container {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(45deg, #ff0050, #00f2ea);
+  min-height: 300px;
+}
+
+.tiktok-actions {
+  position: absolute;
+  right: 12px;
+  bottom: 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.tiktok-action {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.tiktok-action svg {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+}
+
+.tiktok-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #ff0050, #00f2ea);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid white;
+  margin-bottom: 8px;
+}
+
+.tiktok-follow-btn {
+  width: 24px;
+  height: 24px;
+  background: #ff0050;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  border: 2px solid white;
+}
+
+.tiktok-content {
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+}
+
+.tiktok-user-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.tiktok-username {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.tiktok-verified {
+  color: #00f2ea;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.tiktok-caption {
+  font-size: 14px;
+  line-height: 1.4;
+  margin-bottom: 12px;
+  color: #f1f1f1;
+}
+
+.tiktok-music {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 12px;
+  color: #ccc;
+}
+
+.music-icon {
+  font-size: 16px;
+}
+
+.tiktok-hashtags {
+  font-size: 12px;
+  color: #00f2ea;
+  font-weight: 500;
+}
+
+/* 确保TikTok在手机框架中正确显示 */
+.phone-screen .tiktok-post {
+  height: 100%;
+  overflow: hidden;
+}
+
+.tiktok-video-container .uploaded-image-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tiktok-video-container .uploaded-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.tiktok-video-container .image-upload-area {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px dashed rgba(255, 255, 255, 0.3);
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tiktok-video-container .image-upload-area:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+}

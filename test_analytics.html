@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics Dashboard Test</title>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+            min-height: 100vh;
+        }
+
+        .test-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .test-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .test-header h1 {
+            font-size: 32px;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .test-header p {
+            color: #93c5fd;
+            font-size: 16px;
+        }
+
+        .demo-section {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            backdrop-filter: blur(10px);
+        }
+
+        .demo-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+            color: #3b82f6;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .metrics-demo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .metric-demo-card {
+            background: rgba(30, 41, 59, 0.9);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-demo-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+        }
+
+        .metric-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .metric-icon {
+            color: #3b82f6;
+            width: 18px;
+            height: 18px;
+        }
+
+        .metric-label {
+            font-size: 12px;
+            font-weight: 500;
+            color: #94a3b8;
+            flex: 1;
+            margin-left: 8px;
+        }
+
+        .metric-value {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            font-family: 'Monaco', 'Consolas', monospace;
+        }
+
+        .metric-description {
+            font-size: 12px;
+            color: #64748b;
+            line-height: 1.4;
+        }
+
+        .ctr-value { color: #10b981; }
+        .er-value { color: #f59e0b; }
+        .saves-value { color: #8b5cf6; }
+        .hit-value { color: #ef4444; }
+
+        .trend-up {
+            color: #10b981;
+            animation: pulse 2s infinite;
+        }
+
+        .trend-stable {
+            color: #f59e0b;
+        }
+
+        .trend-down {
+            color: #ef4444;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .keywords-demo {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .keyword-tag {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .keyword-tag:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+        }
+
+        .insights-demo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .insight-card {
+            background: rgba(30, 41, 59, 0.9);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .insight-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #3b82f6;
+            margin-bottom: 4px;
+        }
+
+        .insight-label {
+            font-size: 12px;
+            color: #94a3b8;
+            font-weight: 500;
+        }
+
+        .recommendations-demo {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .recommendation-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 16px;
+            background: rgba(30, 41, 59, 0.9);
+            border-radius: 8px;
+            border-left: 3px solid #10b981;
+        }
+
+        .recommendation-bullet {
+            color: #10b981;
+            font-weight: bold;
+            font-size: 16px;
+            margin-top: 2px;
+        }
+
+        .recommendation-item span {
+            font-size: 14px;
+            color: #e2e8f0;
+            line-height: 1.5;
+        }
+
+        .confidence-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 20px;
+            padding: 6px 12px;
+            font-size: 12px;
+            font-weight: 500;
+            color: #10b981;
+            margin-left: 16px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 24px;
+        }
+
+        .action-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .export-btn {
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            color: white;
+        }
+
+        .export-btn:hover {
+            background: linear-gradient(135deg, #1d4ed8, #60a5fa);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+        }
+
+        .refresh-btn {
+            background: rgba(30, 41, 59, 0.9);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: #93c5fd;
+        }
+
+        .refresh-btn:hover {
+            background: rgba(30, 41, 59, 1);
+            border-color: rgba(59, 130, 246, 0.5);
+            color: #60a5fa;
+        }
+
+        @media (max-width: 768px) {
+            .metrics-demo {
+                grid-template-columns: 1fr;
+            }
+            
+            .insights-demo {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .action-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <div class="test-header">
+            <h1>Analytics Dashboard Demo</h1>
+            <p>Viral Forecast Engine - AI-powered content performance prediction</p>
+        </div>
+
+        <div class="demo-section">
+            <div class="demo-title">
+                <i data-lucide="zap"></i>
+                Viral Forecast Engine
+                <div class="confidence-badge">
+                    <i data-lucide="target" style="width: 16px; height: 16px;"></i>
+                    <span>87% Confidence</span>
+                </div>
+            </div>
+            <p style="color: #93c5fd; margin-bottom: 20px; font-style: italic;">
+                AI-powered analysis of past UGC + trending keywords → Predicts viral potential
+            </p>
+
+            <div class="metrics-demo">
+                <div class="metric-demo-card">
+                    <div class="metric-header">
+                        <i data-lucide="eye" class="metric-icon"></i>
+                        <span class="metric-label">CTR (Click-Through Rate)</span>
+                        <i data-lucide="trending-up" class="trend-up"></i>
+                    </div>
+                    <div class="metric-value ctr-value">12.45%</div>
+                    <div class="metric-description">
+                        Expected click-through rate based on content analysis
+                    </div>
+                </div>
+
+                <div class="metric-demo-card">
+                    <div class="metric-header">
+                        <i data-lucide="users" class="metric-icon"></i>
+                        <span class="metric-label">ER (Engagement Rate)</span>
+                        <i data-lucide="trending-up" class="trend-up"></i>
+                    </div>
+                    <div class="metric-value er-value">8.73%</div>
+                    <div class="metric-description">
+                        Predicted engagement rate from likes, comments, shares
+                    </div>
+                </div>
+
+                <div class="metric-demo-card">
+                    <div class="metric-header">
+                        <i data-lucide="bookmark" class="metric-icon"></i>
+                        <span class="metric-label">Saves Rate</span>
+                        <i data-lucide="activity" class="trend-stable"></i>
+                    </div>
+                    <div class="metric-value saves-value">18.92%</div>
+                    <div class="metric-description">
+                        Expected save/bookmark rate indicating content value
+                    </div>
+                </div>
+
+                <div class="metric-demo-card">
+                    <div class="metric-header">
+                        <i data-lucide="target" class="metric-icon"></i>
+                        <span class="metric-label">Hit Probability</span>
+                        <i data-lucide="trending-up" class="trend-up"></i>
+                    </div>
+                    <div class="metric-value hit-value">34.67%</div>
+                    <div class="metric-description">
+                        Probability of content going viral based on current trends
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <div class="demo-title">
+                <i data-lucide="trending-up"></i>
+                Trending Keywords Analysis
+            </div>
+            <div class="keywords-demo">
+                <div class="keyword-tag">#AI content</div>
+                <div class="keyword-tag">#viral trends</div>
+                <div class="keyword-tag">#social media</div>
+                <div class="keyword-tag">#digital marketing</div>
+                <div class="keyword-tag">#content strategy</div>
+                <div class="keyword-tag">#engagement</div>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <div class="demo-title">
+                <i data-lucide="bar-chart-3"></i>
+                UGC Performance Insights
+            </div>
+            <div class="insights-demo">
+                <div class="insight-card">
+                    <div class="insight-value">12,847</div>
+                    <div class="insight-label">Total Posts Analyzed</div>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-value">9.23%</div>
+                    <div class="insight-label">Avg Engagement Rate</div>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-value">video</div>
+                    <div class="insight-label">Top Content Type</div>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-value">6 PM</div>
+                    <div class="insight-label">Peak Posting Time</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <div class="demo-title">
+                <i data-lucide="target"></i>
+                AI Recommendations
+            </div>
+            <div class="recommendations-demo">
+                <div class="recommendation-item">
+                    <div class="recommendation-bullet">•</div>
+                    <span>Optimize posting time to 6 PM for maximum engagement</span>
+                </div>
+                <div class="recommendation-item">
+                    <div class="recommendation-bullet">•</div>
+                    <span>Include trending hashtags: #AI #content #viral</span>
+                </div>
+                <div class="recommendation-item">
+                    <div class="recommendation-bullet">•</div>
+                    <span>Use video format for 40% higher engagement</span>
+                </div>
+                <div class="recommendation-item">
+                    <div class="recommendation-bullet">•</div>
+                    <span>Add call-to-action buttons to increase CTR by 25%</span>
+                </div>
+                <div class="recommendation-item">
+                    <div class="recommendation-bullet">•</div>
+                    <span>Post on Tuesday and Thursday for best performance</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <button class="action-btn export-btn">
+                <i data-lucide="download" style="width: 16px; height: 16px;"></i>
+                Export Report
+            </button>
+            <button class="action-btn refresh-btn">
+                <i data-lucide="refresh-cw" style="width: 16px; height: 16px;"></i>
+                Refresh Analysis
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Add some interactivity
+        document.querySelectorAll('.keyword-tag').forEach(tag => {
+            tag.addEventListener('click', () => {
+                tag.style.transform = 'scale(1.1)';
+                setTimeout(() => {
+                    tag.style.transform = 'scale(1)';
+                }, 200);
+            });
+        });
+
+        document.querySelector('.export-btn').addEventListener('click', () => {
+            alert('Export functionality would be implemented here!');
+        });
+
+        document.querySelector('.refresh-btn').addEventListener('click', () => {
+            location.reload();
+        });
+    </script>
+</body>
+</html> 

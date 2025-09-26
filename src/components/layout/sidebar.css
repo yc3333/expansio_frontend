@@ -1,0 +1,152 @@
+/* ===== 第三步：创建 sidebar.css 文件 ===== */
+
+.sidebar {
+  background: #000;
+  border-right: 1px solid rgba(59, 130, 246, 0.3);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 20;
+  transition: all 0.3s ease;
+}
+
+.sidebar-collapsed {
+  width: 64px;
+}
+
+.sidebar-expanded {
+  width: 256px;
+}
+
+/* Toggle Button */
+.sidebar-toggle {
+  position: absolute;
+  right: -12px;
+  top: 80px;
+  background: #1e3a8a;
+  border: 1px solid #1d4ed8;
+  border-radius: 50%;
+  padding: 4px;
+  color: #93c5fd;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sidebar-toggle:hover {
+  background: #1e40af;
+}
+
+/* Logo Area */
+.sidebar-logo {
+  padding: 16px;
+  border-bottom: 1px solid rgba(59, 130, 246, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sidebar-logo-img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+.sidebar-logo-text {
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+/* Navigation */
+.sidebar-nav {
+  flex: 1;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sidebar-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  background: none;
+  border: none;
+  color: #cbd5e1;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.sidebar-item:hover {
+  color: white;
+  background: rgba(30, 58, 138, 0.5);
+}
+
+.sidebar-item-active {
+  background: linear-gradient(to right, #2563eb, #1e40af);
+  color: white;
+  box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
+}
+
+.sidebar-item-icon {
+  flex-shrink: 0;
+}
+
+.sidebar-item-text {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.sidebar-item-name {
+  font-weight: 500;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.sidebar-item-desc {
+  font-size: 12px;
+  color: #94a3b8;
+  white-space: nowrap;
+}
+
+.sidebar-item-active .sidebar-item-desc {
+  color: #dbeafe;
+}
+
+/* Footer */
+.sidebar-footer {
+  padding: 16px;
+  border-top: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.sidebar-status {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #93c5fd;
+  font-size: 14px;
+}
+
+.sidebar-status-dot {
+  width: 8px;
+  height: 8px;
+  background: #60a5fa;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}

@@ -1,0 +1,602 @@
+import React, { useState, useEffect } from 'react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, PieChart, Pie, Cell, LineChart, Line, ResponsiveContainer } from 'recharts';
+import { Calendar, Filter, TrendingUp, MessageCircle, Heart, Share2, Eye, Target, Users, Brain, Star, ThumbsUp, Clock, PlayCircle } from 'lucide-react';
+
+const Dashboard = () => {
+  const [selectedTimeRange, setSelectedTimeRange] = useState('7d');
+  const [selectedPlatform, setSelectedPlatform] = useState('all');
+  const [selectedTab, setSelectedTab] = useState('overview');
+
+  // Mock data
+  const overviewData = {
+    totalPosts: 156,
+    avgEngagementRate: 4.2,
+    avgGMV: 12500,
+    topCTA: "立即抢购",
+    platforms: [
+      { name: 'TikTok', value: 45, color: '#ff0050' },
+      { name: '小红书', value: 35, color: '#ff2442' },
+      { name: 'LinkedIn', value: 15, color: '#0077b5' },
+      { name: 'Instagram', value: 25, color: '#e4405f' }
+    ]
+  };
+
+  const contentData = [
+    {
+      id: 1,
+      title: "AI写作工具测评：ChatGPT vs Claude",
+      platform: "小红书",
+      publishTime: "2025-06-25 14:30",
+      cover: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=100&h=100&fit=crop",
+      engagement: { likes: 1240, comments: 89, shares: 156, saves: 234 },
+      ctr: 3.8,
+      conversion: true,
+      conversionTime: "2小时",
+      promptTemplate: "产品测评模板",
+      agentPath: "Constitution → Review → Publish",
+      teamRating: 4.5,
+      annotations: ['视觉好', '钩子强', '逻辑顺']
+    },
+    {
+      id: 2,
+      title: "5分钟学会prompt工程",
+      platform: "TikTok",
+      publishTime: "2025-06-24 19:45",
+      cover: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=100&h=100&fit=crop",
+      engagement: { likes: 2340, comments: 167, shares: 289, saves: 445 },
+      ctr: 5.2,
+      conversion: true,
+      conversionTime: "45分钟",
+      promptTemplate: "教程解说模板",
+      agentPath: "Hook → Structure → Output",
+      teamRating: 4.8,
+      annotations: ['钩子强', 'UGC风格好']
+    },
+    {
+      id: 3,
+      title: "LinkedIn个人品牌打造指南",
+      platform: "LinkedIn",
+      publishTime: "2025-06-23 10:15",
+      cover: "https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=100&h=100&fit=crop",
+      engagement: { likes: 567, comments: 45, shares: 78, saves: 123 },
+      ctr: 2.9,
+      conversion: false,
+      conversionTime: "-",
+      promptTemplate: "职场分享模板",
+      agentPath: "Professional → Review → Post",
+      teamRating: 3.2,
+      annotations: ['逻辑顺']
+    }
+  ];
+
+  const ctaData = [
+    { cta: "立即抢购", ctr: 5.8, position: "结尾", count: 23 },
+    { cta: "免费试用", ctr: 4.9, position: "中段", count: 18 },
+    { cta: "点击了解", ctr: 3.7, position: "开头", count: 15 },
+    { cta: "马上体验", ctr: 4.2, position: "结尾", count: 12 },
+    { cta: "扫码获取", ctr: 3.9, position: "中段", count: 9 }
+  ];
+
+  const platformColors = {
+    'TikTok': '#ff0050',
+    '小红书': '#ff2442',
+    'LinkedIn': '#0077b5',
+    'Instagram': '#e4405f'
+  };
+
+  const KPICard = ({ title, value, icon: Icon, trend = null }) => (
+    <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="text-gray-400 text-sm font-medium">{title}</p>
+          <p className="text-2xl font-bold text-white mt-1">{value}</p>
+          {trend && (
+            <div className="flex items-center mt-2">
+              <TrendingUp className="w-4 h-4 text-green-400 mr-1" />
+              <span className="text-green-400 text-sm">+{trend}%</span>
+            </div>
+          )}
+        </div>
+        <div className="bg-blue-500 bg-opacity-20 p-3 rounded-lg">
+          <Icon className="w-6 h-6 text-blue-400" />
+        </div>
+      </div>
+    </div>
+  );
+
+  const ContentCard = ({ content }) => (
+    <div className="bg-gray-800 rounded-lg p-4 border border-gray-700 hover:border-gray-600 transition-colors">
+      <div className="flex items-start space-x-4">
+        <img src={content.cover} alt={content.title} className="w-16 h-16 rounded-lg object-cover" />
+        <div className="flex-1">
+          <div className="flex items-center justify-between mb-2">
+            <h3 className="text-white font-medium text-sm">{content.title}</h3>
+            <div className="flex items-center space-x-2">
+              <span className="px-2 py-1 bg-blue-600 text-blue-100 text-xs rounded-full">{content.platform}</span>
+              <div className="flex items-center">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star key={i} className={`w-3 h-3 ${i < content.teamRating ? 'text-yellow-400 fill-current' : 'text-gray-600'}`} />
+                ))}
+              </div>
+            </div>
+          </div>
+          
+          <p className="text-gray-400 text-xs mb-3">{content.publishTime}</p>
+          
+          <div className="grid grid-cols-4 gap-3 mb-3">
+            <div className="text-center">
+              <div className="flex items-center justify-center mb-1">
+                <Heart className="w-3 h-3 text-red-400 mr-1" />
+                <span className="text-white text-xs">{content.engagement.likes}</span>
+              </div>
+              <p className="text-gray-500 text-xs">点赞</p>
+            </div>
+            <div className="text-center">
+              <div className="flex items-center justify-center mb-1">
+                <MessageCircle className="w-3 h-3 text-blue-400 mr-1" />
+                <span className="text-white text-xs">{content.engagement.comments}</span>
+              </div>
+              <p className="text-gray-500 text-xs">评论</p>
+            </div>
+            <div className="text-center">
+              <div className="flex items-center justify-center mb-1">
+                <Share2 className="w-3 h-3 text-green-400 mr-1" />
+                <span className="text-white text-xs">{content.engagement.shares}</span>
+              </div>
+              <p className="text-gray-500 text-xs">转发</p>
+            </div>
+            <div className="text-center">
+              <div className="flex items-center justify-center mb-1">
+                <Eye className="w-3 h-3 text-purple-400 mr-1" />
+                <span className="text-white text-xs">{content.ctr}%</span>
+              </div>
+              <p className="text-gray-500 text-xs">CTR</p>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center space-x-2">
+              <span className={`w-2 h-2 rounded-full ${content.conversion ? 'bg-green-400' : 'bg-red-400'}`}></span>
+              <span className="text-xs text-gray-400">
+                {content.conversion ? `转化 (${content.conversionTime})` : '未转化'}
+              </span>
+            </div>
+            <span className="text-xs text-blue-400">{content.promptTemplate}</span>
+          </div>
+
+          <div className="flex items-center justify-between">
+            <div className="flex flex-wrap gap-1">
+              {content.annotations.map((tag, index) => (
+                <span key={index} className="px-2 py-1 bg-blue-900 text-blue-200 text-xs rounded-full">
+                  {tag}
+                </span>
+              ))}
+            </div>
+            <button className="text-blue-400 hover:text-blue-300 text-xs">生成相似内容</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="min-h-screen bg-gray-900 text-white">
+      {/* Header */}
+      <header className="bg-black border-b border-gray-800 px-6 py-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2">
+              <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-sm">E</span>
+              </div>
+              <h1 className="text-xl font-bold text-white">EXPANSIO AI</h1>
+            </div>
+            <div className="h-6 w-px bg-gray-600"></div>
+            <h2 className="text-lg text-gray-300">📊 Insights Hub</h2>
+          </div>
+          
+          <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2 bg-gray-800 rounded-lg p-2">
+              <Calendar className="w-4 h-4 text-gray-400" />
+              <select 
+                value={selectedTimeRange} 
+                onChange={(e) => setSelectedTimeRange(e.target.value)}
+                className="bg-transparent text-white text-sm border-none outline-none"
+              >
+                <option value="today">Today</option>
+                <option value="7d">7 Days</option>
+                <option value="30d">30 Days</option>
+                <option value="custom">Custom</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* Navigation Tabs */}
+      <nav className="bg-gray-900 border-b border-gray-800 px-6">
+        <div className="flex space-x-8">
+          {[
+            { id: 'overview', label: '🧩 总览模块', icon: TrendingUp },
+            { id: 'content', label: '📈 内容复盘', icon: MessageCircle },
+            { id: 'cta', label: '🎯 CTA分析器', icon: Target },
+            { id: 'collaboration', label: '📚 协作标注', icon: Users },
+            { id: 'ai-insights', label: '🧠 AI策略建议', icon: Brain }
+          ].map(({ id, label, icon: Icon }) => (
+            <button
+              key={id}
+              onClick={() => setSelectedTab(id)}
+              className={`flex items-center space-x-2 py-4 px-2 border-b-2 transition-colors ${
+                selectedTab === id
+                  ? 'border-blue-500 text-blue-400'
+                  : 'border-transparent text-gray-400 hover:text-gray-300'
+              }`}
+            >
+              <Icon className="w-4 h-4" />
+              <span className="text-sm font-medium">{label}</span>
+            </button>
+          ))}
+        </div>
+      </nav>
+
+      {/* Main Content */}
+      <main className="p-6">
+        {selectedTab === 'overview' && (
+          <div className="space-y-6">
+            {/* KPI Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <KPICard title="内容发布总量" value={overviewData.totalPosts} icon={MessageCircle} trend={12} />
+              <KPICard title="平均互动率" value={`${overviewData.avgEngagementRate}%`} icon={Heart} trend={8} />
+              <KPICard title="平均GMV贡献" value={`¥${overviewData.avgGMV}`} icon={TrendingUp} trend={15} />
+              <KPICard title="最高转化CTA" value={overviewData.topCTA} icon={Target} />
+            </div>
+
+            {/* Charts */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
+                <h3 className="text-lg font-semibold text-white mb-4">平台分布</h3>
+                <ResponsiveContainer width="100%" height={300}>
+                  <PieChart>
+                    <Pie
+                      data={overviewData.platforms}
+                      cx="50%"
+                      cy="50%"
+                      innerRadius={60}
+                      outerRadius={100}
+                      paddingAngle={5}
+                      dataKey="value"
+                    >
+                      {overviewData.platforms.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={entry.color} />
+                      ))}
+                    </Pie>
+                    <Tooltip />
+                  </PieChart>
+                </ResponsiveContainer>
+                <div className="flex flex-wrap justify-center gap-4 mt-4">
+                  {overviewData.platforms.map((platform, index) => (
+                    <div key={index} className="flex items-center space-x-2">
+                      <div className={`w-3 h-3 rounded-full`} style={{ backgroundColor: platform.color }}></div>
+                      <span className="text-sm text-gray-300">{platform.name}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
+                <h3 className="text-lg font-semibold text-white mb-4">互动趋势</h3>
+                <ResponsiveContainer width="100%" height={300}>
+                  <LineChart data={[
+                    { date: '6/22', engagement: 3.2 },
+                    { date: '6/23', engagement: 2.9 },
+                    { date: '6/24', engagement: 5.2 },
+                    { date: '6/25', engagement: 3.8 },
+                    { date: '6/26', engagement: 4.1 },
+                    { date: '6/27', engagement: 4.5 },
+                    { date: '6/28', engagement: 4.8 }
+                  ]}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+                    <XAxis dataKey="date" stroke="#9CA3AF" />
+                    <YAxis stroke="#9CA3AF" />
+                    <Tooltip 
+                      contentStyle={{ backgroundColor: '#1F2937', border: '1px solid #374151', borderRadius: '8px' }}
+                      labelStyle={{ color: '#F3F4F6' }}
+                    />
+                    <Line type="monotone" dataKey="engagement" stroke="#3B82F6" strokeWidth={3} dot={{ fill: '#3B82F6', strokeWidth: 2, r: 4 }} />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {selectedTab === 'content' && (
+          <div className="space-y-6">
+            <div className="flex items-center justify-between">
+              <h2 className="text-xl font-semibold text-white">内容复盘分析</h2>
+              <div className="flex items-center space-x-4">
+                <div className="flex items-center space-x-2 bg-gray-800 rounded-lg p-2">
+                  <Filter className="w-4 h-4 text-gray-400" />
+                  <select 
+                    value={selectedPlatform} 
+                    onChange={(e) => setSelectedPlatform(e.target.value)}
+                    className="bg-transparent text-white text-sm border-none outline-none"
+                  >
+                    <option value="all">所有平台</option>
+                    <option value="tiktok">TikTok</option>
+                    <option value="xiaohongshu">小红书</option>
+                    <option value="linkedin">LinkedIn</option>
+                    <option value="instagram">Instagram</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div className="grid gap-4">
+              {contentData.map((content) => (
+                <ContentCard key={content.id} content={content} />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {selectedTab === 'cta' && (
+          <div className="space-y-6">
+            <h2 className="text-xl font-semibold text-white">CTA分析器</h2>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
+                <h3 className="text-lg font-semibold text-white mb-4">CTA表现排行</h3>
+                <div className="space-y-4">
+                  {ctaData.map((item, index) => (
+                    <div key={index} className="flex items-center justify-between">
+                      <div className="flex-1">
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="text-white font-medium">{item.cta}</span>
+                          <span className="text-blue-400 font-semibold">{item.ctr}%</span>
+                        </div>
+                        <div className="flex items-center space-x-2 text-xs text-gray-400">
+                          <span>位置: {item.position}</span>
+                          <span>•</span>
+                          <span>使用次数: {item.count}</span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
+                <h3 className="text-lg font-semibold text-white mb-4">CTA位置分析</h3>
+                <ResponsiveContainer width="100%" height={250}>
+                  <BarChart data={[
+                    { position: '开头', ctr: 3.7, count: 15 },
+                    { position: '中段', ctr: 4.4, count: 27 },
+                    { position: '结尾', ctr: 5.0, count: 35 }
+                  ]}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+                    <XAxis dataKey="position" stroke="#9CA3AF" />
+                    <YAxis stroke="#9CA3AF" />
+                    <Tooltip 
+                      contentStyle={{ backgroundColor: '#1F2937', border: '1px solid #374151', borderRadius: '8px' }}
+                      labelStyle={{ color: '#F3F4F6' }}
+                    />
+                    <Bar dataKey="ctr" fill="#3B82F6" radius={[4, 4, 0, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+
+            <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
+              <h3 className="text-lg font-semibold text-white mb-4">🏆 最佳实践推荐</h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="bg-green-900 bg-opacity-30 border border-green-700 rounded-lg p-4">
+                  <h4 className="text-green-400 font-medium mb-2">高转化CTA</h4>
+                  <p className="text-green-200 text-sm">"立即抢购" - 5.8% CTR</p>
+                  <p className="text-gray-400 text-xs mt-1">建议在结尾使用，增强紧迫感</p>
+                </div>
+                <div className="bg-blue-900 bg-opacity-30 border border-blue-700 rounded-lg p-4">
+                  <h4 className="text-blue-400 font-medium mb-2">最佳位置</h4>
+                  <p className="text-blue-200 text-sm">结尾 - 平均5.0% CTR</p>
+                  <p className="text-gray-400 text-xs mt-1">用户观看完整内容后转化意愿更强</p>
+                </div>
+                <div className="bg-purple-900 bg-opacity-30 border border-purple-700 rounded-lg p-4">
+                  <h4 className="text-purple-400 font-medium mb-2">趋势建议</h4>
+                  <p className="text-purple-200 text-sm">增加免费试用类CTA</p>
+                  <p className="text-gray-400 text-xs mt-1">降低用户决策门槛，提升转化</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {selectedTab === 'collaboration' && (
+          <div className="space-y-6">
+            <h2 className="text-xl font-semibold text-white">协作式标注系统</h2>
+            
+            <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
+              <h3 className="text-lg font-semibold text-white mb-4">团队标注统计</h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-green-400">89</div>
+                  <div className="text-sm text-gray-400">视觉好</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-blue-400">67</div>
+                  <div className="text-sm text-gray-400">钩子强</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-purple-400">45</div>
+                  <div className="text-sm text-gray-400">逻辑顺</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-orange-400">34</div>
+                  <div className="text-sm text-gray-400">UGC风格好</div>
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              {contentData.map((content) => (
+                <div key={content.id} className="bg-gray-800 rounded-lg p-4 border border-gray-700">
+                  <div className="flex items-start space-x-4">
+                    <img src={content.cover} alt={content.title} className="w-12 h-12 rounded-lg object-cover" />
+                    <div className="flex-1">
+                      <div className="flex items-center justify-between mb-2">
+                        <h3 className="text-white font-medium">{content.title}</h3>
+                        <div className="flex items-center space-x-2">
+                          <span className="text-xs text-gray-400">团队评分:</span>
+                          <div className="flex items-center">
+                            {Array.from({ length: 5 }).map((_, i) => (
+                              <Star key={i} className={`w-4 h-4 ${i < content.teamRating ? 'text-yellow-400 fill-current' : 'text-gray-600'}`} />
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="flex flex-wrap gap-2 mb-3">
+                        {content.annotations.map((tag, index) => (
+                          <span key={index} className="px-3 py-1 bg-blue-900 text-blue-200 text-sm rounded-full flex items-center space-x-1">
+                            <ThumbsUp className="w-3 h-3" />
+                            <span>{tag}</span>
+                          </span>
+                        ))}
+                      </div>
+
+                      <div className="bg-gray-700 rounded-lg p-3 mt-3">
+                        <div className="flex items-center space-x-2 mb-2">
+                          <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-xs text-white font-bold">张</div>
+                          <span className="text-sm text-gray-300">@张小明</span>
+                          <span className="text-xs text-gray-500">2小时前</span>
+                        </div>
+                        <p className="text-sm text-gray-300">这个标题的钩子设计很棒，"5分钟学会"很能抓住用户痛点，建议后续内容可以复用这个结构。</p>
+                      </div>
+
+                      <div className="flex items-center justify-between mt-3">
+                        <button className="text-blue-400 hover:text-blue-300 text-sm flex items-center space-x-1">
+                          <MessageCircle className="w-4 h-4" />
+                          <span>添加评论</span>
+                        </button>
+                        <button className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-lg text-sm">
+                          标记为训练样本
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {selectedTab === 'ai-insights' && (
+          <div className="space-y-6">
+            <h2 className="text-xl font-semibold text-white">AI策略建议</h2>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
+                <div className="flex items-center space-x-2 mb-4">
+                  <Brain className="w-5 h-5 text-blue-400" />
+                  <h3 className="text-lg font-semibold text-white">Constitution Agent 评估</h3>
+                </div>
+                
+                <div className="space-y-4">
+                  <div className="bg-blue-900 bg-opacity-30 border border-blue-700 rounded-lg p-4">
+                    <h4 className="text-blue-400 font-medium mb-2">Hook表现分析</h4>
+                    <p className="text-blue-200 text-sm mb-2">当前Hook平均评分: 4.2/5.0</p>
+                    <p className="text-gray-300 text-sm">建议: 增加数字化表达和时间限制词汇，如"5分钟"、"3步骤"等，提升Hook吸引力。</p>
+                  </div>
+                  
+                  <div className="bg-green-900 bg-opacity-30 border border-green-700 rounded-lg p-4">
+                    <h4 className="text-green-400 font-medium mb-2">结构优化建议</h4>
+                    <p className="text-green-200 text-sm mb-2">结构完整度: 87%</p>
+                    <p className="text-gray-300 text-sm">建议: 在内容中段增加案例支撑，提升说服力和可信度。</p>
+                  </div>
+                  
+                  <div className="bg-purple-900 bg-opacity-30 border border-purple-700 rounded-lg p-4">
+                    <h4 className="text-purple-400 font-medium mb-2">语言风格评估</h4>
+                    <p className="text-purple-200 text-sm mb-2">情绪色调强度: 中等</p>
+                    <p className="text-gray-300 text-sm">建议: 适度增加感性表达，使用更多情感词汇连接用户。</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
+                <div className="flex items-center space-x-2 mb-4">
+                  <Target className="w-5 h-5 text-green-400" />
+                  <h3 className="text-lg font-semibold text-white">Feedback Analyst 建议</h3>
+                </div>
+                
+                <div className="space-y-4">
+                  <div className="bg-orange-900 bg-opacity-30 border border-orange-700 rounded-lg p-4">
+                    <h4 className="text-orange-400 font-medium mb-2">📈 CTA优化</h4>
+                    <p className="text-gray-300 text-sm">尝试将CTA前置到内容开头，结合悬念设置可提升20%点击率</p>
+                    <button className="mt-2 bg-orange-600 hover:bg-orange-700 text-white px-3 py-1 rounded text-xs">
+                      复制为Prompt
+                    </button>
+                  </div>
+                  
+                  <div className="bg-red-900 bg-opacity-30 border border-red-700 rounded-lg p-4">
+                    <h4 className="text-red-400 font-medium mb-2">🎯 平台趋势</h4>
+                    <p className="text-gray-300 text-sm">小红书当前趋势偏向"干货分享+个人经历"，建议调整发布节奏和内容风格</p>
+                    <button className="mt-2 bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-xs">
+                      查看详细分析
+                    </button>
+                  </div>
+                  
+                  <div className="bg-cyan-900 bg-opacity-30 border border-cyan-700 rounded-lg p-4">
+                    <h4 className="text-cyan-400 font-medium mb-2">⏰ 发布时机</h4>
+                    <p className="text-gray-300 text-sm">根据用户行为数据，建议TikTok内容在19:00-21:00发布，转化效果最佳</p>
+                    <button className="mt-2 bg-cyan-600 hover:bg-cyan-700 text-white px-3 py-1 rounded text-xs">
+                      设置提醒
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
+              <h3 className="text-lg font-semibold text-white mb-4">🚀 推荐行动方案</h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="bg-gradient-to-r from-blue-900 to-blue-800 rounded-lg p-4">
+                  <div className="flex items-center space-x-2 mb-2">
+                    <PlayCircle className="w-5 h-5 text-blue-300" />
+                    <h4 className="text-blue-300 font-medium">立即执行</h4>
+                  </div>
+                  <p className="text-blue-100 text-sm">优化3条低表现内容的CTA位置</p>
+                  <button className="mt-3 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm w-full">
+                    开始优化
+                  </button>
+                </div>
+                
+                <div className="bg-gradient-to-r from-green-900 to-green-800 rounded-lg p-4">
+                  <div className="flex items-center space-x-2 mb-2">
+                    <Clock className="w-5 h-5 text-green-300" />
+                    <h4 className="text-green-300 font-medium">本周计划</h4>
+                  </div>
+                  <p className="text-green-100 text-sm">制作5条"数字化Hook"风格内容</p>
+                  <button className="mt-3 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm w-full">
+                    添加到日程
+                  </button>
+                </div>
+                
+                <div className="bg-gradient-to-r from-purple-900 to-purple-800 rounded-lg p-4">
+                  <div className="flex items-center space-x-2 mb-2">
+                    <TrendingUp className="w-5 h-5 text-purple-300" />
+                    <h4 className="text-purple-300 font-medium">长期策略</h4>
+                  </div>
+                  <p className="text-purple-100 text-sm">建立平台化内容模板库</p>
+                  <button className="mt-3 bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg text-sm w-full">
+                    制定方案
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </main>
+    </div>
+  );
+};
+
+export default Dashboard;

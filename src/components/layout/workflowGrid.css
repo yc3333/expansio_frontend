@@ -1,0 +1,40 @@
+/* ===== src/components/layout/workflowGrid.css ===== */
+
+.workflow-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 0.8fr 1fr;
+  gap: 20px;
+  height: 100vh;
+  padding: 100px 20px 20px 20px; 
+}
+
+.workflow-column {
+  background: #111;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 8px;
+  padding: 20px;
+  color: white;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.workflow-column:hover {
+  background: #1a1a1a;
+  border-color: rgba(59, 130, 246, 0.5);
+}
+
+/* 确保Step组件的header样式统一 */
+.workflow-column h3 {
+  margin: 0 0 8px 0;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.workflow-column p {
+  margin: 0;
+  color: #93c5fd;
+  font-size: 14px;
+}
